@@ -7,8 +7,11 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
-export function createGallery(images) {
-  const gallery = document.querySelector('.gallery');
+const gallery = document.querySelector('.gallery');
+const loader = document.querySelector('.loader');
+const loadMoreBtn = document.querySelector('.load-more-btn');
+
+export function createGallery(images) {  
   const markup = images
     .map(img => `
       <li class="gallery-item">
@@ -24,21 +27,26 @@ export function createGallery(images) {
       </li>`)
     .join('');
 
-  gallery.innerHTML = markup; 
+  gallery.insertAdjacentHTML('beforeend', markup);
   lightbox.refresh();
 }
 
 export function clearGallery() {
-  const gallery = document.querySelector('.gallery');
-  if (gallery) gallery.innerHTML = '';
+  gallery.innerHTML = '';
 }
 
 export function showLoader() {
-  const loader = document.querySelector('.loader');
-  if (loader) loader.classList.add('is-visible');
+  loader.classList.add('is-visible');
 }
 
 export function hideLoader() {
-  const loader = document.querySelector('.loader');
-  if (loader) loader.classList.remove('is-visible');
+ loader.classList.remove('is-visible');
+}
+
+export function showLoadMoreButton() {
+  loadMoreBtn.classList.remove('is-hidden');
+}
+
+export function hideLoadMoreButton() {
+  loadMoreBtn.classList.add('is-hidden');
 }
